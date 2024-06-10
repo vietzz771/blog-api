@@ -1,7 +1,8 @@
 import { Schema, model } from "mongoose";
 import bcrypt from "bcryptjs";
 const { hash, compare } = bcrypt;
-import { sign } from "jsonwebtoken";
+import pkg from "jsonwebtoken";
+const { sign } = pkg;
 
 const UserSchema = new Schema(
   {
