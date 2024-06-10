@@ -1,5 +1,5 @@
-import PostCategories from "../models/PostCategories";
-import Post from "../models/Post";
+import PostCategories from "../models/PostCategories.js";
+import Post from "../models/Post.js";
 
 const createPostCategory = async (req, res, next) => {
   try {
@@ -26,9 +26,7 @@ const createPostCategory = async (req, res, next) => {
 
 const getSingleCategory = async (req, res, next) => {
   try {
-    const postCategory = await PostCategories.findById(
-      req.params.postCategoryId
-    );
+    const postCategory = await PostCategories.findById(req.params.postCategoryId);
 
     if (!postCategory) {
       const error = new Error("Category was not found!");
@@ -67,10 +65,7 @@ const getAllPostCategories = async (req, res, next) => {
       return res.json([]);
     }
 
-    const result = await query
-      .skip(skip)
-      .limit(pageSize)
-      .sort({ updatedAt: "desc" });
+    const result = await query.skip(skip).limit(pageSize).sort({ updatedAt: "desc" });
 
     return res.json(result);
   } catch (error) {
@@ -107,10 +102,7 @@ const deletePostCategory = async (req, res, next) => {
   try {
     const categoryId = req.params.postCategoryId;
 
-    await Post.updateMany(
-      { categories: { $in: [categoryId] } },
-      { $pull: { categories: categoryId } }
-    );
+    await Post.updateMany({ categories: { $in: [categoryId] } }, { $pull: { categories: categoryId } });
 
     await PostCategories.deleteOne({ _id: categoryId });
 
@@ -122,10 +114,4 @@ const deletePostCategory = async (req, res, next) => {
   }
 };
 
-export {
-  createPostCategory,
-  getAllPostCategories,
-  updatePostCategory,
-  deletePostCategory,
-  getSingleCategory,
-};
+export { createPostCategory, getAllPostCategories, updatePostCategory, deletePostCategory, getSingleCategory };

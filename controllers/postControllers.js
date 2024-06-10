@@ -1,7 +1,7 @@
-import { uploadPicture } from "../middleware/uploadPictureMiddleware";
-import Post from "../models/Post";
-import Comment from "../models/Comment";
-import { fileRemover } from "../utils/fileRemover";
+import { uploadPicture } from "../middleware/uploadPictureMiddleware.js";
+import Post from "../models/Post.js";
+import Comment from "../models/Comment.js";
+import { fileRemover } from "../utils/fileRemover.js";
 import { v4 as uuidv4 } from "uuid";
 
 const createPost = async (req, res, next) => {
@@ -51,9 +51,7 @@ const updatePost = async (req, res, next) => {
 
     upload(req, res, async function (err) {
       if (err) {
-        const error = new Error(
-          "An unknown error occured when uploading " + err.message
-        );
+        const error = new Error("An unknown error occured when uploading " + err.message);
         next(error);
       } else {
         // every thing went well

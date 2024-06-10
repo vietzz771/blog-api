@@ -1,8 +1,8 @@
-import { uploadPicture } from "../middleware/uploadPictureMiddleware";
-import Comment from "../models/Comment";
-import Post from "../models/Post";
-import User from "../models/User";
-import { fileRemover } from "../utils/fileRemover";
+import { uploadPicture } from "../middleware/uploadPictureMiddleware.js";
+import Comment from "../models/Comment.js";
+import Post from "../models/Post.js";
+import User from "../models/User.js";
+import { fileRemover } from "../utils/fileRemover.js";
 
 const registerUser = async (req, res, next) => {
   try {
@@ -139,9 +139,7 @@ const updateProfilePicture = async (req, res, next) => {
 
     upload(req, res, async function (err) {
       if (err) {
-        const error = new Error(
-          "An unknown error occured when uploading " + err.message
-        );
+        const error = new Error("An unknown error occured when uploading " + err.message);
         next(error);
       } else {
         // every thing went well
@@ -213,10 +211,7 @@ const getAllUsers = async (req, res, next) => {
       return res.json([]);
     }
 
-    const result = await query
-      .skip(skip)
-      .limit(pageSize)
-      .sort({ updatedAt: "desc" });
+    const result = await query.skip(skip).limit(pageSize).sort({ updatedAt: "desc" });
 
     return res.json(result);
   } catch (error) {
@@ -256,12 +251,4 @@ const deleteUser = async (req, res, next) => {
   }
 };
 
-export {
-  registerUser,
-  loginUser,
-  userProfile,
-  updateProfile,
-  updateProfilePicture,
-  getAllUsers,
-  deleteUser,
-};
+export { registerUser, loginUser, userProfile, updateProfile, updateProfilePicture, getAllUsers, deleteUser };
